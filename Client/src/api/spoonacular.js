@@ -7,7 +7,7 @@ const BACKEND_URL = "https://foodrecipe-meki.onrender.com";
 
 export const registerUser = async (username,email,password) => {
   try {
-    const response = await axios.post(`${BACKEND_URL}/auth/register`, username,email,password);
+    const response = await axios.post(`${BACKEND_URL}/register`, username,email,password);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Registration failed");
@@ -17,7 +17,7 @@ export const registerUser = async (username,email,password) => {
 // Login
 export const loginUser = async (username,email,password) => {
   try {
-    const response = await axios.post(`${BACKEND_URL}/auth/login`, username,email,password);
+    const response = await axios.post(`${BACKEND_URL}/login`, username,email,password);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Login failed");
