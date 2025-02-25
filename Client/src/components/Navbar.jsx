@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import {useState} from 'react'
-import logo from '../assets/sushi-logo.svg'
+
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,7 @@ function Navbar() {
       <div className="flex justify-between h-16">
         <div className="flex items-center">
           <div className="flex-shrink-0">
-            <img className="h-8 w-8" src={logo} alt="Logo" />
+            <img className="h-8 w-8" src="https://cdn-icons-png.freepik.com/512/2515/2515183.png" alt="Logo" />
           </div>
           <div className="hidden md:flex md:space-x-8 ml-10">
             <Link to="/" className="text-gray-900 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Home</Link>

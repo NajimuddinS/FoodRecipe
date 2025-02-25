@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault()
 
   try {
-    const response = await axios.post('https://recipe-1dy1.onrender.com/auth/login',{
+    const response = await axios.post('https://foodrecipe-meki.onrender.com/auth/login',{
       email,
       password
     })

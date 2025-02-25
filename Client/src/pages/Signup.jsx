@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import '../style/login.css';
+// import '../style/login.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ async function HandleSubmit(e){
    
       
     try {
-        const  response =  await axios.post('' , {
+        const  response =  await axios.post('https://foodrecipe-meki.onrender.com' , {
             Username,
             email,
             password
@@ -80,3 +80,5 @@ async function HandleSubmit(e){
       </>
   )
 }
+
+export default Signup;

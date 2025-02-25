@@ -4,6 +4,7 @@ import Recipe from './pages/Recipe';
 import RecipeDetails from './pages/RecipeDetails';
 import SavedRecipes from './pages/SavedRecipes';
 import Form from './components/Form'
+import Signup from './pages/Signup'
 import { RecipeProvider } from './context/RecipeContext';
 import './index.css'
 
@@ -18,7 +19,7 @@ function App() {
               <Route path="/" element={<Recipe />} />
               <Route path="/recipe/:id" element={<RecipeDetails />} />
               <Route path="/saved-recipes" element={<SavedRecipes />} />
-              <Route path="/login" element={<Form />} />
+              <Route path="/login" element={<Signup />} />
             </Routes>
           </main>
         </div>
