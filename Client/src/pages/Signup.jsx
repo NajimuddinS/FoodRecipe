@@ -1,84 +1,82 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-// import '../style/login.css';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
-    const [Username , setname]  =  useState('')
-    const [email , setemail]  =  useState('')
-    const [password , setpassword]  =  useState('')
+  const [Username, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-   const navigate = useNavigate()
+  const navigate = useNavigate();
 
-async function HandleSubmit(e){
+  async function HandleSubmit(e) {
     e.preventDefault();
-   
-      
+
     try {
-        const  response =  await axios.post('https://foodrecipe-meki.onrender.com' , {
-            Username,
-            email,
-            password
-        })
-        setname("")
-        setemail("")
-        setpassword("")
-        await navigate('/login')
+      await axios.post("https://foodrecipe-meki.onrender.com/signup", {
+        Username,
+        email,
+        password,
+      });
+      setName("");
+      setEmail("");
+      setPassword("");
+      navigate("/login");
     } catch (error) {
-        console.log(
-            "something went wrong "
-        )
+      console.log("Something went wrong");
     }
-
-
- }
-
+  }
 
   return (
-    <>  
-     <div className='login_body'>
-     <div className='container_login'>
-     <h2>Signup</h2>
-    <form onSubmit={HandleSubmit} className='login-form '>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center text-red-500">Signup</h2>
 
-    <input type="text"
-      value={Username}
-      onChange={(e)=>setname(e.target.value)}
-      placeholder='Enter Username'
-      required
-       className='input'
-       />
+        <form onSubmit={HandleSubmit} className="mt-6 space-y-4">
+          <input
+            type="text"
+            value={Username}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter Username"
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+          />
 
-<input type="email"
-      value={email}
-      onChange={(e)=>setemail(e.target.value)}
-      placeholder='Enter Email' 
-      required
-       className='input'
-      />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter Email"
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+          />
 
-<input type="text"
-      value={password}
-      onChange={(e)=>setpassword(e.target.value)}
-      placeholder='Enter Password' 
-      required
-       className='input'
-      />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter Password"
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+          />
 
-<button type='Submit'>Submit</button>
+          <button
+            type="submit"
+            className="w-full bg-red-500 text-white font-bold py-2 rounded hover:bg-red-600 transition"
+          >
+            Submit
+          </button>
+        </form>
 
-<p> Already have an account?{' '}
-          <Link to='/login' id='links'>
-           Login
-          </Link></p>
-
-    </form>
-     </div>
-     </div>
-     
-      </>
-  )
-}
+        <p className="text-center text-gray-700 mt-4">
+          Already have an account?{" "}
+          <Link to="/login" className="text-red-500 font-bold hover:underline">
+            Login
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export default Signup;
