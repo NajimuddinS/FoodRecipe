@@ -4,18 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import {registerUser} from '../api/spoonacular';
 
 export const Signup = () => {
-  const [formData, setFormData] = useState({
-    Username: "",
-    email: "",
-    password: "",
-  });
+  const [username, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await registerUser(formData);
+      await registerUser(username,email,password);
       alert("Registration successful! Please login.");
       navigate("/login");
     } catch (error) {
@@ -31,8 +29,8 @@ export const Signup = () => {
         <form onSubmit={HandleSubmit} className="mt-6 space-y-4">
           <input
             type="text"
-            value={formData.Username}
-            onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+            value={username}
+            onChange={(e) => setName(e.target.value)}
             placeholder="Enter Username"
             required
             className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -40,7 +38,7 @@ export const Signup = () => {
 
           <input
             type="email"
-            value={formData.email}
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter Email"
             required
@@ -49,7 +47,7 @@ export const Signup = () => {
 
           <input
             type="password"
-            value={formData.password}
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter Password"
             required
