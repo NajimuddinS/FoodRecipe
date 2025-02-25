@@ -17,7 +17,7 @@ export const registerUser = async (username,email,password) => {
 // Login
 export const loginUser = async (username,email,password) => {
   try {
-    const response = await axios.post(`${BACKEND_URL}/login`, username,email,password);
+    const response = await axios.post(`${BACKEND_URL}/login`, username,email,password, { withCredentials: true });
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Login failed");

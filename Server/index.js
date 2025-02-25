@@ -15,6 +15,14 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+const corsOptions = {
+  origin: "https://food-recipe-nine-psi.vercel.app", // Your frontend URL
+  credentials: true, // Allow cookies and headers
+};
+
+app.use(cors(corsOptions));
+
+
 app.use("/food", food);
 
 const bcrypt = require("bcryptjs");
