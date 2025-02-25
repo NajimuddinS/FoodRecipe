@@ -13,7 +13,7 @@ export const Signup = () => {
     e.preventDefault();
 
     try {
-      await axios.post("https://foodrecipe-meki.onrender.com/signup", {
+      await axios.post("signup", {
         Username,
         email,
         password,
