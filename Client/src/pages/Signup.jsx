@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
-  const [Username, setName] = useState("");
+  const [username, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,7 +14,7 @@ export const Signup = () => {
 
     try {
       await axios.post("register", {
-        Username,
+        username,
         email,
         password,
       });
@@ -35,7 +35,7 @@ export const Signup = () => {
         <form onSubmit={HandleSubmit} className="mt-6 space-y-4">
           <input
             type="text"
-            value={Username}
+            value={username}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter Username"
             required

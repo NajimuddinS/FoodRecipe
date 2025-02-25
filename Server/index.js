@@ -21,10 +21,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 app.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { Username, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
-    const user = await User.create({ name, email, password: hashedPassword });
+    const user = await User.create({ Username, email, password: hashedPassword });
     res.json({ message: "User Registered Successfully", user });
   } catch (error) {
     res.status(400).json({ error: "User already exists" });
