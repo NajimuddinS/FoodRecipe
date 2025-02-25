@@ -32,7 +32,7 @@ export const Signup = () => {
           <input
             type="text"
             value={formData.Username}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
             placeholder="Enter Username"
             required
             className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
