@@ -4,9 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import {registerUser} from '../api/spoonacular';
 
 export const Signup = () => {
-  const [username, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
 
