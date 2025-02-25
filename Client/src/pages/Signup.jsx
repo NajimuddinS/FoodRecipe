@@ -5,7 +5,7 @@ import {registerUser} from '../api/spoonacular';
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    Username: "",
     email: "",
     password: "",
   });
@@ -31,7 +31,7 @@ export const Signup = () => {
         <form onSubmit={HandleSubmit} className="mt-6 space-y-4">
           <input
             type="text"
-            value={username}
+            value={formData.Username}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter Username"
             required
@@ -40,7 +40,7 @@ export const Signup = () => {
 
           <input
             type="email"
-            value={email}
+            value={formData.email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter Email"
             required
@@ -49,7 +49,7 @@ export const Signup = () => {
 
           <input
             type="password"
-            value={password}
+            value={formData.password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter Password"
             required
