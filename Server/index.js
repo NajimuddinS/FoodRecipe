@@ -31,18 +31,6 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// app.post("/login", async (req, res) => {
-//   const { email, password } = req.body;
-//   const user = await User.findOne({ email });
-//   if (!user) return res.status(400).json({ error: "User not found" });
-
-//   const isValidPassword = await bcrypt.compare(password, user.password);
-//   if (!isValidPassword) return res.status(400).json({ error: "Invalid credentials" });
-
-//   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-//   res.json({ message: "Login successful", token });
-// });
-
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
