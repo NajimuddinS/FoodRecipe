@@ -21,7 +21,7 @@ function App() {
               <Route path="/recipe/:id" element={<RecipeDetails />} />
               <Route path="/saved-recipes" element={<SavedRecipes />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+              <Route path="/register" element={<Signup />} />
             </Routes>
           </main>
         </div>
