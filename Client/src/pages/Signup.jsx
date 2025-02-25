@@ -13,7 +13,7 @@ export const Signup = () => {
     e.preventDefault();
 
     try {
-      await axios.post("signup", {
+      await axios.post("register", {
         Username,
         email,
         password,
