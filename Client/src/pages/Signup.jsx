@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import {registerUser} from '../api/spoonacular';
 
 export const Signup = () => {
   const [username, setName] = useState("");
@@ -9,23 +10,16 @@ export const Signup = () => {
 
   const navigate = useNavigate();
 
-  async function HandleSubmit(e) {
+  const HandleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      await axios.post("register", {
-        username,
-        email,
-        password,
-      });
-      setName("");
-      setEmail("");
-      setPassword("");
+      await registerUser(formData);
+      alert("Registration successful! Please login.");
       navigate("/login");
     } catch (error) {
-      console.log("Something went wrong");
+      console.error("Registration failed:", error);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
