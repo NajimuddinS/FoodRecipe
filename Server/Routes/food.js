@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../model/auth.model.js');
 const food = express.Router();
-const JWT_SECRET = 'RecipeKey';
+
 
 
 async function FetchData(url){
@@ -16,19 +16,6 @@ try {
 }
 }
 
-
-food.get('/', async (req, res) => {
-    try {
-        const recipeData = "https://dummyjson.com/recipes?limit=50"
-        const data = await FetchData(recipeData)
-         res.json(data)
-        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({message: "Something Went wrong"});
-    }
-})
-
 food.post('/register', async (req, res) => {
     try {
         const { Username, email, password } = req.body;
@@ -40,7 +27,6 @@ food.post('/register', async (req, res) => {
         });
 
         await newUser.save();
-
         res.status(201).json({ message: 'User registered successfully' })
     } catch (error) {
         console.error('Registration error:', error);

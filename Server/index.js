@@ -1,11 +1,10 @@
-const express=require('express');
-const dotenv=require('dotenv');
-const cors=require('cors');
-const cookieParser=require('cookie-parser');
-const User=require('./model/auth.model.js');
-const connectDB=require('./config/db.js');
-const food = require('./Routes/food.js');
-
+const express = require("express");
+const dotenv = require("dotenv");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const User = require("./model/auth.model.js");
+const connectDB = require("./config/db.js");
+const food = require("./Routes/food.js");
 
 dotenv.config();
 connectDB();
@@ -13,12 +12,10 @@ connectDB();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors()); 
+app.use(cors());
 app.use(express.json());
 
-app.use('/food' , food )
-
-
+app.use("/food", food);
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -34,16 +31,46 @@ app.post("/register", async (req, res) => {
   }
 });
 
+// app.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+//   const user = await User.findOne({ email });
+//   if (!user) return res.status(400).json({ error: "User not found" });
+
+//   const isValidPassword = await bcrypt.compare(password, user.password);
+//   if (!isValidPassword) return res.status(400).json({ error: "Invalid credentials" });
+
+//   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+//   res.json({ message: "Login successful", token });
+// });
+
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) return res.status(400).json({ error: "User not found" });
+  try {
+    const { email, password } = req.body;
 
-  const isValidPassword = await bcrypt.compare(password, user.password);
-  if (!isValidPassword) return res.status(400).json({ error: "Invalid credentials" });
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    }
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-  res.json({ message: "Login successful", token });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    }
+
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.status(200).json({
+      message: "User logged in successfully",
+      token,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ error: "Failed to login" });
+  }
 });
 
 app.get("/protected", (req, res) => {
