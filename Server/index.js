@@ -1,0 +1,63 @@
+const express=require('express');
+const dotenv=require('dotenv');
+const cors=require('cors');
+const cookieParser=require('cookie-parser');
+const User=require('./model/auth.model.js');
+const connectDB=require('./config/db.js');
+const food = require('./Routes/food.js');
+
+
+dotenv.config();
+connectDB();
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(cors()); 
+app.use(express.json());
+
+app.use('/food' , food )
+
+
+
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+app.post("/register", async (req, res) => {
+  const { name, email, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const user = await User.create({ name, email, password: hashedPassword });
+    res.json({ message: "User Registered Successfully", user });
+  } catch (error) {
+    res.status(400).json({ error: "User already exists" });
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(400).json({ error: "User not found" });
+
+  const isValidPassword = await bcrypt.compare(password, user.password);
+  if (!isValidPassword) return res.status(400).json({ error: "Invalid credentials" });
+
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  res.json({ message: "Login successful", token });
+});
+
+app.get("/protected", (req, res) => {
+  const token = req.headers["authorization"];
+  if (!token) return res.status(403).json({ error: "Access denied" });
+
+  try {
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    res.json({ message: "Protected data", user: verified });
+  } catch {
+    res.status(400).json({ error: "Invalid token" });
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server running on ${port}`);
+});
