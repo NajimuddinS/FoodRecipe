@@ -5,9 +5,9 @@ const BASE_URL = 'https://api.spoonacular.com/recipes';
 const BACKEND_URL = "https://foodrecipe-meki.onrender.com";
 
 
-export const registerUser = async (formData) => {
+export const registerUser = async (username,email,password) => {
   try {
-    const response = await axios.post(`${BACKEND_URL}/auth/register`, formData);
+    const response = await axios.post(`${BACKEND_URL}/auth/register`, username,email,password);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Registration failed");
@@ -15,9 +15,9 @@ export const registerUser = async (formData) => {
 };
 
 // Login
-export const loginUser = async (userData) => {
+export const loginUser = async (username,email,password) => {
   try {
-    const response = await axios.post(`${BACKEND_URL}/auth/login`, userData);
+    const response = await axios.post(`${BACKEND_URL}/auth/login`, username,email,password);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Login failed");
